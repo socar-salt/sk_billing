@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+<style>
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis--x path {
+  display: none;
+}
+
+</style>
+<svg width="1920" height="1080"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+
+<body>
+<div></div>
+</body>
+
+
+
+<footer>
+
+<script>
+//d3.csv("cities.csv", function(data){
+//    //배열에 있는 각 객체의 population 속성의 최솟값인 500,000을 반환한다.
+//    d3.min(data, function(el){return +el.population});
+//    //배열에 있는 각 객체의 popu.ation 속성의 최댓값을 반환
+//    d3.max(data, function(el){return +el.population});
+//    //배열에 있는 각 객체의 population 속성의 평균값을 반환
+//    d3.mean(data, function(el){return +el.population});
+//});
+    
+    
+d3.csv("cities.csv", function(error,data){
+    dataViz(data);
+});
+    
+function dataViz(incomingData){
+    //<body>안에 "cities"클래스에 속한 <div>요소가 없으므로 빈 셀렉션이다.
+    d3.select("body").selectAll("div.cities")
+    //데이터를 셀렉션에 바인딩한다.
+    .data(incomingData)
+    //셀렉션 안에 있는 DOM 요소보다 데이터가 더 많을 때 어떻게 대응할지 정의한다.
+    .enter()
+    //현재 셀렉션 안에 요소를 생성한다.
+    .append("div")
+    //새로 생성된 요소의 클래스를 설정한다.
+    .attr("class", "cities")
+    //생성된 <div>요소의 내용을 설정한다.
+    .html(function(d,i){return d.label;});
+
+}
+</script>
+</footer>
+
+
+
